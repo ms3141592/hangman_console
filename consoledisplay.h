@@ -6,7 +6,9 @@
 
 #include "gamelogic.h"
 
-
+// display "_" for unguessed letters
+// display all guessed letters
+// display hangman
 
 
 

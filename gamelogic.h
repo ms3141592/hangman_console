@@ -7,6 +7,9 @@
 #include "userinput.h"
 #include "randomword.h"
 
+// user guessed letters
+// user guessed correct
+// user guessed incorrect
 
 
 
