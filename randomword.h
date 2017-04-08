@@ -11,7 +11,7 @@
 using std::string;
 
 
-class WordFromFile {
+class RandomWord {
 private:
 	int fileLen = 5; // set the length of the items in ".txt" file
 	string _randomWord; // place holder for new word
@@ -22,13 +22,13 @@ public:
 	string getWord(); // uses randomLine() and returns randomWord
 };
 
-int WordFromFile::randomNum() {
+int RandomWord::randomNum() {
 	srand(time(0));
 	int num = rand()%fileLen;	
 	return num;
 }
 
-void WordFromFile::randomLine() {
+void RandomWord::randomLine() {
 	string line;
 	int num = randomNum();
 	std::ifstream myfile("sample.txt");
@@ -44,7 +44,7 @@ void WordFromFile::randomLine() {
 	myfile.close();		
 }
 
-string WordFromFile::getWord() {
+string RandomWord::getWord() {
 	randomLine();
 	return _randomWord;
 }

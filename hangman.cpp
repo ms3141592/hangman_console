@@ -10,11 +10,15 @@ int main() {
 
 	
 	//	test
-	WordFromFile wordfile;
-	InputFromUser userinput;
-	char y = userinput.getChar();
-	string x = wordfile.getWord();
-	std::cout << y << x;
+	while(true) {
+		
+		RandomWord randomword;
+		UserInput userinput;
+		char y = userinput.getChar();
+		string x = randomword.getWord();
+		std::cout << y << x << std::endl;
+	
+	}
 	
 	return 0;
 }

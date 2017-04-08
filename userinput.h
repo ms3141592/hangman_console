@@ -7,7 +7,7 @@
 #include<conio.h>
 // check what key is pressed from user int and char 
 
-class InputFromUser {
+class UserInput {
 	
 private:
 	char _alphabet[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
@@ -22,7 +22,7 @@ public:
 	
 };
 
-void InputFromUser::getKeyboardInput(){
+void UserInput::getKeyboardInput(){
 	_keyNum = -1;
 	while (_keyNum == -1) {	
 		if (_kbhit()) {
@@ -32,7 +32,7 @@ void InputFromUser::getKeyboardInput(){
 	setChar();
 }
 
-void InputFromUser::setChar() {
+void UserInput::setChar() {
 	// CAPSLOCK
 	if( ( _keyNum >= 65) && (_keyNum <= 90) ) {
 		_store = _alphabet[_keyNum-65];
@@ -44,7 +44,7 @@ void InputFromUser::setChar() {
 	}	
 }
 
-char InputFromUser::getChar(){
+char UserInput::getChar(){
 	getKeyboardInput();
 	return _store;
 }
