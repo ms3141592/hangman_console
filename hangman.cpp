@@ -7,11 +7,20 @@
 
 
 int main() {
-
-	ConsoleDisplay consoledisplay;
-	consoledisplay.displayBlankWord();
 	
-	//	test
+	ConsoleDisplay consoledisplay;
+	while(true) {
+
+	consoledisplay.displayHangman();
+	
+	//consoledisplay.displayBlankWord();
+
+	consoledisplay.displayGuessedLetters();
+
+	consoledisplay.displayWrongGuessNum();
+
+	}
+	/*	test
 	while(true) {
 		
 		RandomWord randomword;
@@ -20,7 +29,7 @@ int main() {
 		string x = randomword.getWord();
 		std::cout << y << x << std::endl;
 	
-	}
+	}*/
 	
 	return 0;
 }
