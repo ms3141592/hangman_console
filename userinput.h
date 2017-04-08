@@ -5,20 +5,21 @@
 
 
 #include<conio.h>
+#include<string>
+
+using std::string;
 // check what key is pressed from user int and char 
 
 class UserInput {
 	
 private:
-	char _alphabet[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-						 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-						 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'	};
-	char _store; // save char  
+	string _alphabet = "abcdefghijklmnopqrstuvwxyz";
+	string _store; // save char  
 	int _keyNum; // key num	
 	void getKeyboardInput(); // gets user input and stores it in keyNum
-	void setChar();
+	void setString();
 public:
-	char getChar(); // returns picked char
+	string getString(); // returns picked char
 	
 };
 
@@ -29,14 +30,14 @@ void UserInput::getKeyboardInput(){
 			_keyNum = _getch();
 		}
 	}
-	setChar();
+	setString();
 }
 
-void UserInput::setChar() {
-	// CAPSLOCK
+void UserInput::setString() {
+	// CAPSLOCK key numbers
 	if( ( _keyNum >= 65) && (_keyNum <= 90) ) {
 		_store = _alphabet[_keyNum-65];
-	}
+	} // lowercase
 	else if( ( _keyNum >= 97) && (_keyNum <= 122) ) {
 		_store = _alphabet[_keyNum-97];
 	} else { // did not enter the alphabet
@@ -44,7 +45,7 @@ void UserInput::setChar() {
 	}	
 }
 
-char UserInput::getChar(){
+string UserInput::getString(){
 	getKeyboardInput();
 	return _store;
 }
