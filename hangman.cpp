@@ -9,17 +9,13 @@
 int main() {
 	
 	ConsoleDisplay consoledisplay;
-	while(true) {
 
-	consoledisplay.displayHangman();
-	
-	//consoledisplay.displayBlankWord();
+	do {
+		consoledisplay.displayGameScreen();
+	} while (true);
 
-	consoledisplay.displayGuessedLetters();
 
-	consoledisplay.displayWrongGuessNum();
 
-	}
 	/*	test
 	while(true) {
 		

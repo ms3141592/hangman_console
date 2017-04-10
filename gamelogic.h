@@ -12,7 +12,7 @@ class GameLogic {
 private:
 	RandomWord randomword; 
 	UserInput userinput; 
-	string _hiddenWord = randomword.getWord();  
+	string _hiddenWord;  
 	string _guessedLetters; 
 	string _letterInWord;
 	string _blankWord;
@@ -20,10 +20,13 @@ private:
 	
 	void guessLetter();  // keep track of _guessedLetters
 	void setBlankWord();
+
 	void updateBlankWord();
 	void guessedWrong(string); // keep int of wrong guesses
 public:
 	
+	void newGame(string);
+	void getHiddenWord();
 	string getBlankWord();
 	string getGuessedLetters(); // return _guessedLetters
 	int getWrongGuessNum();
@@ -71,6 +74,11 @@ void GameLogic::setBlankWord() {
 	}
 }
 
+void GameLogic::getHiddenWord() {
+	_hiddenWord = randomword.getWord();
+}
+
+
 void GameLogic::updateBlankWord() {
 	for(int i = 0; i < _hiddenWord.length(); i++) {
 		for(int j = 0; j < _guessedLetters.length(); j++) {
@@ -114,7 +122,15 @@ bool GameLogic::killedMan() {
 	return dead;
 }
 
-
+void GameLogic::newGame(string reset) {
+	if(reset == "y") {
+		_hiddenWord.clear();  
+		_guessedLetters.clear(); 
+		_letterInWord.clear();
+		_blankWord.clear();
+		_guessedIncorrect = 0; 
+	}
+}
 
 
 
