@@ -11,21 +11,16 @@ int main() {
 	ConsoleDisplay consoledisplay;
 
 	do {
-		consoledisplay.displayGameScreen();
-	} while (true);
-
-
-
-	/*	test
-	while(true) {
+		while (consoledisplay._startGame != "s" && consoledisplay._startGame != "c") {
+			consoledisplay.displayStartScreen();
+		}
+		if (consoledisplay._playAgain == "y"){
+			consoledisplay.displayGameScreen();
+		}
 		
-		RandomWord randomword;
-		UserInput userinput;
-		string y = userinput.getString();
-		string x = randomword.getWord();
-		std::cout << y << x << std::endl;
-	
-	}*/
-	
+		
+	} while (consoledisplay._startGame != "c");
+
+
 	return 0;
 }

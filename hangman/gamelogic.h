@@ -19,15 +19,15 @@ private:
 	int _guessedIncorrect = 0; 
 	
 	void guessLetter();  // keep track of _guessedLetters
-	void setBlankWord();
+	void setBlankWord(); 
 
 	void updateBlankWord();
 	void guessedWrong(string); // keep int of wrong guesses
 public:
 	
-	void newGame(string);
-	void getHiddenWord();
-	string getBlankWord();
+	void newGame(string); // reset all variables
+	void getHiddenWord(); // new word 
+	string getBlankWord(); 
 	string getGuessedLetters(); // return _guessedLetters
 	int getWrongGuessNum();
 	bool guessedWord();
@@ -123,7 +123,7 @@ bool GameLogic::killedMan() {
 }
 
 void GameLogic::newGame(string reset) {
-	if(reset == "y") {
+	if(reset == "y" || reset == "n") {
 		_hiddenWord.clear();  
 		_guessedLetters.clear(); 
 		_letterInWord.clear();

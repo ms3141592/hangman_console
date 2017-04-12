@@ -4,7 +4,6 @@
 #define CONSOLEDISPLAY_H
 
 #include<algorithm>
-//#include<iostream>
 #include<windows.h>
 
 #include "gamelogic.h"
@@ -17,8 +16,8 @@ private:
 	GameLogic gamelogic;
 	UserInput userinput;
 	int _wrongGuessCount = 0;
-	string _playAgain = "n";
 	string _guessedLetters;
+	bool _gameOn;
 	
 	void displayBlankWord();
 	void displayLetters();
@@ -28,10 +27,13 @@ private:
 	void guessLetter();
 	void levelOver(string);
 	void playAgain();
-	void clearBackground();
-public:	
+	void background();
+public:
+	string _playAgain;
+	string _startGame;
+	
 	void displayGameScreen();
-	void displayStartScree();
+	void displayStartScreen();
 };
 
 void ConsoleDisplay::coordinate(int x,int y) {
@@ -39,28 +41,41 @@ void ConsoleDisplay::coordinate(int x,int y) {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-void ConsoleDisplay::clearBackground() {
-	coordinate(0, 0);
+void ConsoleDisplay::background() {
 	string line;
+	int backgroundTxt = 0;
+	coordinate(0, 0);
+
 	std::ifstream myfile("fulldisplay.txt");
 	while ( getline (myfile, line) ) {
-	    cout << line << '\n';
+		if(backgroundTxt < 23 && _gameOn) {
+			cout << line << '\n';
+			backgroundTxt++;
+		} 
+		else if(backgroundTxt > 22 && !_gameOn) {
+			cout << line << '\n';
+		} else {
+			backgroundTxt++;
+		}
+	    
 	}	
 }
 
-// display "_" for unguessed letters
+//
 void ConsoleDisplay::displayBlankWord() {	
-	coordinate(3, 10);	
+	coordinate(3, 14);	
 	cout << gamelogic.getBlankWord() << endl;
 }
 
 void ConsoleDisplay::guessLetter() {
+	coordinate(3, 16);	
+	cout << "pick letter: ";
 	_guessedLetters = gamelogic.getGuessedLetters();
 }
 
 void ConsoleDisplay::displayLetters() {
 	sort(_guessedLetters.begin(), _guessedLetters.end());
-	int xpos = 3, ypos = 5;
+	int xpos = 3, ypos = 6;
 	
 	coordinate(xpos, ypos);
 	cout << "guessed letters:";
@@ -145,31 +160,42 @@ void ConsoleDisplay::displayHangman() {
 }
 
 void ConsoleDisplay::playAgain() {
+	_playAgain.clear();
 	coordinate(3, 17);
-	cout << "play again? ";
-	_playAgain = userinput.getString();
-	if(_playAgain=="y") {
-        _guessedLetters.clear();
+	cout << "play again (y)/(n)? ";
+	
+	
+	while(_playAgain != "y" && _playAgain != "n") {
+		_playAgain = userinput.getString();
+		if(_playAgain == "y") {        
+	        gamelogic.newGame(_playAgain);
+	        _guessedLetters.clear();
+		} else if (_playAgain == "n") {
+			_startGame.clear();
+			gamelogic.newGame(_playAgain);
+			_guessedLetters.clear();
+		}
 	}
-	gamelogic.newGame(_playAgain);
+	
  
 }
 
 void ConsoleDisplay::levelOver(string winorlose) {
-	clearBackground();
+	background();
 	wrongGuessNum();
 	displayHangman();
-	coordinate(3, 13);
+	coordinate(3, 12);
 	cout << winorlose << endl;
 	displayBlankWord();
 	playAgain();
 }
 
-void ConsoleDisplay::displayGameScreen() {		
+void ConsoleDisplay::displayGameScreen() {
+	_gameOn = true;	
 	gamelogic.getHiddenWord();
 	
 	while(!gamelogic.killedMan() && !gamelogic.guessedWord()) {
-		clearBackground();
+		background();
 		wrongGuessNum();	
 		displayHangman();
 		displayLetters();
@@ -185,6 +211,17 @@ void ConsoleDisplay::displayGameScreen() {
 	} 
 	
 	
+}
+
+void ConsoleDisplay::displayStartScreen() {
+	_gameOn = false;
+	background();
+	coordinate(3, 13);
+	cout << "--> ";
+	_startGame = userinput.getString();
+	if(_startGame == "s") {
+		_playAgain = "y";
+	}
 }
 // display all guessed letters
 // display hangman

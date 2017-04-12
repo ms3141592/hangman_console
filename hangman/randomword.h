@@ -13,7 +13,7 @@ using std::string;
 
 class RandomWord {
 private:
-	int fileLen = 5; // set the length of the items in ".txt" file
+	int fileLen = 20; // set the length of the items in "sample.txt" file
 	string _randomWord; // place holder for new word
 	
 	int randomNum(); // random num generator uses fileLen
