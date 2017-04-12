@@ -1,10 +1,6 @@
 #include<iostream>
 
-
 #include "consoledisplay.h"
-
-
-
 
 int main() {
 	
@@ -16,11 +12,8 @@ int main() {
 		}
 		if (consoledisplay._playAgain == "y"){
 			consoledisplay.displayGameScreen();
-		}
-		
-		
+		}		
 	} while (consoledisplay._startGame != "c");
-
 
 	return 0;
 }

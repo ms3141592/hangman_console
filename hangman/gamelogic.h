@@ -19,10 +19,10 @@ private:
 	int _guessedIncorrect = 0; 
 	
 	void guessLetter();  // keep track of _guessedLetters
-	void setBlankWord(); 
-
-	void updateBlankWord();
 	void guessedWrong(string); // keep int of wrong guesses
+	void setBlankWord(); 
+	void updateBlankWord();
+	
 public:
 	
 	void newGame(string); // reset all variables
@@ -74,11 +74,6 @@ void GameLogic::setBlankWord() {
 	}
 }
 
-void GameLogic::getHiddenWord() {
-	_hiddenWord = randomword.getWord();
-}
-
-
 void GameLogic::updateBlankWord() {
 	for(int i = 0; i < _hiddenWord.length(); i++) {
 		for(int j = 0; j < _guessedLetters.length(); j++) {
@@ -87,6 +82,20 @@ void GameLogic::updateBlankWord() {
 			}
 		}
 	}
+}
+
+void GameLogic::newGame(string reset) {
+	if(reset == "y" || reset == "n") {
+		_hiddenWord.clear();  
+		_guessedLetters.clear(); 
+		_letterInWord.clear();
+		_blankWord.clear();
+		_guessedIncorrect = 0; 
+	}
+}
+
+void GameLogic::getHiddenWord() {
+	_hiddenWord = randomword.getWord();
 }
 
 string GameLogic::getBlankWord() {
@@ -121,17 +130,5 @@ bool GameLogic::killedMan() {
 	}
 	return dead;
 }
-
-void GameLogic::newGame(string reset) {
-	if(reset == "y" || reset == "n") {
-		_hiddenWord.clear();  
-		_guessedLetters.clear(); 
-		_letterInWord.clear();
-		_blankWord.clear();
-		_guessedIncorrect = 0; 
-	}
-}
-
-
 
 #endif

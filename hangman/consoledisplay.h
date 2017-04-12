@@ -19,15 +19,16 @@ private:
 	string _guessedLetters;
 	bool _gameOn;
 	
+	void coordinate(int,int);
+	void background();
 	void displayBlankWord();
+	void guessLetter();
 	void displayLetters();
 	void wrongGuessNum();
 	void displayHangman();
-	void coordinate(int,int);
-	void guessLetter();
-	void levelOver(string);
 	void playAgain();
-	void background();
+	void levelOver(string);
+
 public:
 	string _playAgain;
 	string _startGame;
@@ -45,7 +46,7 @@ void ConsoleDisplay::background() {
 	string line;
 	int backgroundTxt = 0;
 	coordinate(0, 0);
-
+	// print background from "txt"
 	std::ifstream myfile("fulldisplay.txt");
 	while ( getline (myfile, line) ) {
 		if(backgroundTxt < 23 && _gameOn) {
@@ -56,8 +57,7 @@ void ConsoleDisplay::background() {
 			cout << line << '\n';
 		} else {
 			backgroundTxt++;
-		}
-	    
+		}	    
 	}	
 }
 
@@ -71,6 +71,7 @@ void ConsoleDisplay::guessLetter() {
 	coordinate(3, 16);	
 	cout << "pick letter: ";
 	_guessedLetters = gamelogic.getGuessedLetters();
+	gamelogic.getBlankWord(); // update blank word
 }
 
 void ConsoleDisplay::displayLetters() {
@@ -162,8 +163,7 @@ void ConsoleDisplay::displayHangman() {
 void ConsoleDisplay::playAgain() {
 	_playAgain.clear();
 	coordinate(3, 17);
-	cout << "play again (y)/(n)? ";
-	
+	cout << "play again (y)/(n)? ";	
 	
 	while(_playAgain != "y" && _playAgain != "n") {
 		_playAgain = userinput.getString();
@@ -175,9 +175,7 @@ void ConsoleDisplay::playAgain() {
 			gamelogic.newGame(_playAgain);
 			_guessedLetters.clear();
 		}
-	}
-	
- 
+	} 
 }
 
 void ConsoleDisplay::levelOver(string winorlose) {
@@ -196,21 +194,17 @@ void ConsoleDisplay::displayGameScreen() {
 	
 	while(!gamelogic.killedMan() && !gamelogic.guessedWord()) {
 		background();
-		wrongGuessNum();	
+		wrongGuessNum();
 		displayHangman();
 		displayLetters();
 		displayBlankWord();
 		guessLetter();
-
 	}
 	if(gamelogic.guessedWord()) {
 		levelOver("you guessed correct!");
-
 	} else if(gamelogic.killedMan()) {
 		levelOver("you killed him");		
-	} 
-	
-	
+	}	
 }
 
 void ConsoleDisplay::displayStartScreen() {
@@ -223,12 +217,5 @@ void ConsoleDisplay::displayStartScreen() {
 		_playAgain = "y";
 	}
 }
-// display all guessed letters
-// display hangman
-
-
-
-
 
 #endif
-
